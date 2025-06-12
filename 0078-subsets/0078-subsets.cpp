@@ -1,27 +1,27 @@
 class Solution {
-public: 
-    void helper(int index , vector<int>& nums , vector<int> current , vector<vector<int>> &ans){
-        if(index >= nums.size()){
-            ans.push_back(current);
+public:
+    void solve(int i,int n,vector<vector<int>>&ans,vector<int>&temp,vector<int>& nums){
+        // base cond
+        if(i==n){
+            ans.push_back(temp);
             return;
         }
+        // if we take 
+        temp.push_back(nums[i]);
+        solve(i+1,n,ans,temp,nums);
+        temp.pop_back();
 
-        current.push_back(nums[index]);
-
-        helper(index+1 , nums , current , ans);
-
-        current.pop_back();
-        helper(index+1 , nums ,current , ans);
+        // if we dont take
+         solve(i+1,n,ans,temp,nums);
     }
-
-
     vector<vector<int>> subsets(vector<int>& nums) {
-
         vector<vector<int>>ans;
-        vector<int>current;
+        vector<int>temp;
+        int i=0;
+        int n=nums.size();
 
-        helper(0,nums,current,ans);
+        solve(i,n,ans,temp,nums);
+
         return ans;
-        
     }
 };
