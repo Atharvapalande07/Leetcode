@@ -1,24 +1,20 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int n = s.length();
-        int MaxLen=0;
+        vector<int> hash(256, -1);  // store last index of each character
+        int maxLen = 0;
+        int left = 0;
 
-        for(int i=0 ; i<n ; i++){
-            vector<int> hash(256,0);
-
-            for(int j=i ; j<n ; j++){
-                if(hash[s[j]] == 1 ) break;
-
-                hash[s[j]]=1;
-                
-                MaxLen=max( MaxLen , j-i+1);
-                
+        for (int right = 0; right < s.length(); right++) {
+            // If character seen and is inside current window
+            if (hash[s[right]] >= left) {
+                left = hash[s[right]] + 1;  // move left past the last duplicate
             }
+
+            hash[s[right]] = right;  // update last seen index
+            maxLen = max(maxLen, right - left + 1);
         }
-        return MaxLen;
 
-
-        
+        return maxLen;
     }
 };
