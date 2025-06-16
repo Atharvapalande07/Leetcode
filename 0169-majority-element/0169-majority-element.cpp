@@ -1,16 +1,26 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        unordered_map<int,int>mp;
-        for(int&a:nums) mp[a]++;
-        int max_value=INT_MIN;
-        int max_key;
-        for(auto&b:mp){
-            if(b.second>max_value){
-                max_value=b.second;
-                max_key=b.first;
+        unordered_map<int,int> freq;
+
+        for(int i=0 ; i< nums.size() ; i++){
+
+            if(freq.find(nums[i]) != freq.end()){
+                freq[nums[i]]++;
+            }
+            else{
+                freq[nums[i]]=1;
             }
         }
-        return max_key;
+
+        for(auto it = freq.begin() ; it!= freq.end() ; it++){
+            if(it->second > nums.size()/2){
+                return it->first;
+            }
+        }
+        return -1;
+        
+        
+        
     }
 };
