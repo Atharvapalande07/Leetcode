@@ -1,28 +1,33 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        int n =matrix.size();
-        int m=matrix[0].size();
+        int row = matrix.size();
+        int col = matrix[0].size();
 
-        vector<int> row(n, 0);
-        vector<int> col(m, 0);
-
-        for(int i=0 ; i<n ; i++){
-            for(int j=0 ; j<m ; j++){
-                if(matrix[i][j] == 0){
-                    row[i]=1;
-                    col[j]=1;
-
+        for(int i=0 ; i<row ; i++){
+            for(int j=0 ; j<col ; j++){
+                if(matrix[i][j] ==0){
+                    for(int k=0 ; k<col ; k++){
+                        if(matrix[i][k]!=0 && matrix[i][k]!=-999999){
+                            matrix[i][k]=-999999;
+                        }
+                    }
+                    for(int k=0 ; k<row ; k++){
+                        if(matrix[k][j]!=0 && matrix[k][j]!=-999999){
+                            matrix[k][j]=-999999;
+                        }
+                    }
                 }
             }
         }
-        for(int i=0 ; i<n ; i++){
-            for(int j=0 ; j<m ; j++){
-                if(row[i]==1 || col[j]==1){
+        for(int i=0 ; i<row ; i++){
+            for(int j=0 ; j<col ; j++){
+                if(matrix[i][j] ==-999999){
                     matrix[i][j]=0;
                 }
             }
         }
+
         
     }
 };
