@@ -8,9 +8,10 @@ public:
 
         for(int i=0 ; i<nums.size() ; i++){
             sum+=nums[i];
+            int rem = sum-k;
 
-            if(freq.find(sum-k) != freq.end()){
-                count+=freq[sum-k];
+            if(freq.find(rem) != freq.end()){
+                count+=freq[rem];
                 freq[sum]++;
 
             }
