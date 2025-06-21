@@ -1,41 +1,39 @@
 class Solution {
 public:
-vector<int>mergeSort(vector<int>&nums1,vector<int>&nums2){
-    int i=0;
-    int j=0;
-    vector<int>ans;
-    int a=nums1.size();
-    int b=nums2.size();
-    while(i<a&&j<b){
-        if(nums1[i]>nums2[j]){
-            ans.push_back(nums2[j]);
-            j++;
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size();
+        int m = nums2.size();
+        int total = n + m;
+
+        int i=0;
+        int j=0;
+        int cnt=0;
+        int curr =0;
+        int prev = 0;
+
+        while( cnt <= total/2){
+            prev = curr;
+
+            if(i<n && (j>= m || nums1[i] < nums2[j] )){
+                curr =  nums1[i];
+                i++;
+            }else{
+                curr = nums2[j];
+                j++;
+            }
+
+            cnt ++;
+
+
+
         }
-        else{
-            ans.push_back(nums1[i]);
-            i++;
+        if(total % 2 == 0){
+            return (prev + curr) / 2.0;
+        }else{
+            return curr;
         }
 
-    }
-    while(i<a){
-          ans.push_back(nums1[i]);
-            i++;
-    }
-     while(j<b){
-          ans.push_back(nums2[j]);
-            j++;
-    }
-    return ans;
-}
-    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        vector<int>ans;
-        ans=mergeSort(nums1,nums2);
-        int n=ans.size();
-        if(n%2!=0){
-            return (ans[n/2]);
-        }
-        else{
-            return (ans[n/2]+ans[(n/2)-1])/2.0;
-        }
+
+        
     }
 };
