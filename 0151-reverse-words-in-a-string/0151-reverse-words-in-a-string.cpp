@@ -1,19 +1,24 @@
 class Solution {
 public:
-    string reverseWords(string s) {
-        stringstream ss(s);
-        string token = "";
-        string result = "";
-
-        while (ss >> token) {
-            result = token + " " + result;
+    string reverseWords(string str) {
+       stringstream s(str);
+       string word;
+       vector<string>temp;
+       string ans="";
+       while(s >> word){
+        temp.push_back(word);
+       }
+       for(int i=temp.size()-1; i>=0 ; i--){
+        if(i!=0){
+            ans+=temp[i]+" ";
+        }
+        else{
+            ans+=temp[i];
         }
 
-        // Remove trailing space if present
-        if (!result.empty()) {
-            result.pop_back();  // remove the extra space at the end
-        }
-
-        return result;
+       }
+       return ans;
+        
+        
     }
 };
