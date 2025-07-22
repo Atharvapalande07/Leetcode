@@ -1,26 +1,27 @@
 class Solution {
 public:
-    string frequencySort(string s) {
-        unordered_map<char, int> freq;
-        int n = s.length();
+    typedef pair<char,int> P;
 
-        // Count frequency of each character
-        for (int i = 0; i < n; i++) {
-            freq[s[i]]++;
+    string frequencySort(string s) {
+        vector<P> vec(123);  // To store frequency for ASCII characters
+
+        for (char &ch : s) {
+            vec[ch].first = ch;     // Ensure character is stored
+            vec[ch].second++;       // Increment frequency
         }
 
-        // Move map data to vector
-        vector<pair<char, int>> freqVec(freq.begin(), freq.end());
+        // Sort in descending order of frequency
+        auto lambda = [&](P &p1 , P &p2){
+            return p1.second > p2.second;
+        };
+        sort(vec.begin(), vec.end(), lambda);
 
-        // Sort by frequency (highest first)
-        sort(freqVec.begin(), freqVec.end(), [](pair<char, int>& a, pair<char, int>& b) {
-            return a.second > b.second;
-        });
-
-        // Build the result string
         string result = "";
-        for (auto& p : freqVec) {
-            result += string(p.second, p.first);  // repeat the character
+
+        for (int i = 0; i < 123; i++) {
+            if (vec[i].second > 0) {
+                result += string(vec[i].second, vec[i].first);
+            }
         }
 
         return result;
